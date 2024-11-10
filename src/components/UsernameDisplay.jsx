@@ -1,10 +1,14 @@
+import { useUser } from "../context/UserContext";
+
 /**
  *  This component should render the current username
  */
 const UsernameDisplay = () => {
-  // 👇 Find the current username and then show it
+    // 👇 Find the current username and then show it
 
-  return <div>{"Put here the username instead of this text"}</div>;
+    const { username } = useUser();
+
+    return <div>{username}</div>;
 };
 
 export default UsernameDisplay;

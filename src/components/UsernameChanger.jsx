@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useUser } from "../context/UserContext";
+import { useLanguage } from "../context/LanguageContext";
 
 /**
  * This component should have an input and a button that changes the username to the input's value
@@ -7,12 +9,16 @@ import { useState } from "react";
 const UsernameChanger = () => {
     const [text, setText] = useState("");
     // 1. 👇 Create a function that will change the username
+    const user = useUser();
 
     function changeUsername() {
         // 🔥 Change the username
+        user.setUsername(text);
     }
 
-    // 2. 🌟 Find the current language 
+    // 2. 🌟 Find the current language
+    const { language } = useLanguage();
+    console.log("language: ", language);
 
     function handleChange(event) {
         setText(event.target.value);
@@ -20,11 +26,15 @@ const UsernameChanger = () => {
 
     return (
         <div>
-            <span>What is your name?</span>
-            <br /><br />
+            <span>{language ? "What is your name?" : "מה השם שלך"}</span>
+            <br />
+            <br />
             <input value={text} onChange={handleChange} />
-            <br /><br />
-            <button className={`${''}-theme-button clickable`} onClick={changeUsername}>change username</button>
+            <br />
+            <br />
+            <button className={`${""}-theme-button clickable`} onClick={changeUsername}>
+                {language ? "change username" : "שנה שם"}
+            </button>
         </div>
     );
 };
